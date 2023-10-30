@@ -1,9 +1,9 @@
-﻿--
+--
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 15.2
--- Dumped by pg_dump version 15.2
+-- Dumped from database version 15.3
+-- Dumped by pg_dump version 15.3
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -44,11 +44,11 @@ CREATE TABLE public.borci (
     ime character varying(512) NOT NULL,
     prezime character varying(512) NOT NULL,
     rekord character varying(512),
-    "datum_ro─Ĺenja" date,
-    "preciznost_zna─Źajnih_udaraca" character varying(512),
-    "broj_zna─Źajnih_udaraca_po_minuti" numeric(5,2),
-    "preciznost_ru┼íenja" character varying(512),
-    "broj_ru┼íenja_po_minuti" numeric(5,2),
+    "datum_rođenja" date,
+    "preciznost_značajnih_udaraca" character varying(512),
+    "broj_značajnih_udaraca_po_minuti" numeric(5,2),
+    "preciznost_rušenja" character varying(512),
+    "broj_rušenja_po_minuti" numeric(5,2),
     datum_prethodne_borbe date NOT NULL
 );
 
@@ -71,8 +71,8 @@ Israel	Adesanya	Alex	Pereira	2023-04-08	pobjeda
 Alex	Pereira	Jan	Blachowicz	2023-07-29	pobjeda
 Alex	Pereira	Israel	Adesanya	2023-04-08	poraz
 Jan	Blachowicz	Alex	Pereira	2023-07-29	poraz
-Jan	Blachowicz	Magomed	Ankalaev	2022-12-10	nerije┼íeno
-Magomed	Ankalaev	Jan	Blachowicz	2022-12-10	nerije┼íeno
+Jan	Blachowicz	Magomed	Ankalaev	2022-12-10	neriješeno
+Magomed	Ankalaev	Jan	Blachowicz	2022-12-10	neriješeno
 Magomed	Ankalaev	Anthony	Smith	2022-07-30	pobjeda
 Alexander	Volkanovski	Yair	Rodriguez	2023-07-08	pobjeda
 Alexander	Volkanovski	Islam	Makhachev	2023-02-11	poraz
@@ -87,7 +87,7 @@ Charles	Oliveira	Islam	Makhachev	2022-10-22	poraz
 -- Data for Name: borci; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.borci (ime, prezime, rekord, "datum_ro─Ĺenja", "preciznost_zna─Źajnih_udaraca", "broj_zna─Źajnih_udaraca_po_minuti", "preciznost_ru┼íenja", "broj_ru┼íenja_po_minuti", datum_prethodne_borbe) FROM stdin;
+COPY public.borci (ime, prezime, rekord, "datum_rođenja", "preciznost_značajnih_udaraca", "broj_značajnih_udaraca_po_minuti", "preciznost_rušenja", "broj_rušenja_po_minuti", datum_prethodne_borbe) FROM stdin;
 Jon	Jones	27-1-0	1987-07-19	57%	4.29	45%	1.93	2023-03-04
 Jon	Jones	27-1-0	1987-07-19	57%	4.29	45%	1.93	2020-02-08
 Stipe	Miocic	20-4-0	1982-08-19	53%	4.82	34%	1.86	2021-03-27
