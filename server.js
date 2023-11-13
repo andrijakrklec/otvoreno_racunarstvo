@@ -6,7 +6,7 @@ const pool = new pg.Pool({
   user: "postgres",
   host: "localhost",
   database: "UFC_borci",
-  password: "kr182ge",
+  password: "bazepodataka",
   port: 5432,
 });
 
@@ -111,7 +111,7 @@ app.post("/", async (req, res) => {
     .then((result) => {
       return result.rows;
     });
-  console.log(tmp);
+  // console.log(tmp);
   return res.send(tmp);
 });
 
@@ -123,6 +123,6 @@ function isNumeric(str) {
 }
 
 function isDateFormatValid(dateString) {
-  const pattern = /^\d{2}.\d{2}.\d{4}$/;
+  const pattern = /^\d{2}.\d{2}.\d{4}.$/;
   return pattern.test(dateString);
 }
