@@ -17,7 +17,12 @@
       integrity="sha256-H8xrCe0tZFi/C2CgxkmiGksqVaxhW0PFcUKZJZo1yNU="
       crossorigin="anonymous"
     ></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
 
     <style>
       #tablica_filter {
@@ -37,7 +42,7 @@
         name="search"
         placeholder="Unesite vrijednost"
         id="text_polje"
-      /><br /><br>
+      /><br /><br />
       <label>Po ovoj vrijednost će se pretraživati podaci</label><br />
       <select name="select_polje" id="select_polje">
         <option disabled selected>Odaberite polje za pretragu</option>
@@ -143,12 +148,8 @@
           {
             text: "JSON",
             action: function (e, dt, button, config) {
-              var table = $("#tablica").tableToJSON({
-                ignoreColumns: [7],
-              });
-
               $.fn.dataTable.fileSave(
-                new Blob([JSON.stringify(table, null, "\t")]),
+                new Blob([JSON.stringify(transformToJSON(data))]),
                 "Export.json"
               );
             },
@@ -189,6 +190,52 @@
       const year = date.getFullYear();
 
       return `${day}.${month}.${year}.`;
+    }
+
+    function transformToJSON(inputDataArray) {
+      var transformedArray = [];
+
+      function transformFightData(fight) {
+        let tmp = transformedArray.filter((x) => {
+          return x !== undefined && x.id == fight.id;
+        });
+        if (tmp.length > 0) {
+          tmp[0].prethodne_borbe.push({
+            protivnik: `${fight.protivnik_ime} ${fight.protivnik_prezime}`,
+            rezultat: fight.rezultat,
+            datum_borbe: `${(new Date(fight.datum_borbe)).toISOString().split('T')[0]}`,
+          });
+          return 0;
+        }
+
+        const transformedFight = {
+          id: fight.id,
+          ime: fight.ime,
+          prezime: fight.prezime,
+          rekord: fight.rekord,
+          datum_rođenja: `${(new Date(fight.datum_rođenja)).toISOString().split('T')[0]}`,
+          preciznost_značajnih_udaraca: fight.preciznost_značajnih_udaraca,
+          broj_značajnih_udaraca_po_minuti:
+            fight.broj_značajnih_udaraca_po_minuti,
+          preciznost_rušenja: fight.preciznost_rušenja,
+          broj_rušenja_po_minuti: fight.broj_rušenja_po_minuti,
+        };
+        transformedFight.prethodne_borbe = [
+          {
+            protivnik: `${fight.protivnik_ime} ${fight.protivnik_prezime}`,
+            rezultat: fight.rezultat,
+            datum_borbe: `${(new Date(fight.datum_borbe)).toISOString().split('T')[0]}`,
+          },
+        ];
+
+        transformedArray.push(transformedFight);
+
+        return 0;
+      }
+
+      inputDataArray.forEach((x) => transformFightData(x));
+
+      return transformedArray;
     }
   </script>
 </html>
