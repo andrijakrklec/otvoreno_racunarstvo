@@ -28,3 +28,4 @@ Podatci se sastoje od:
 	- ime i prezime protivnika
 	- rezultat borbe
 	- datum borbe
+
